@@ -2,7 +2,9 @@ MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire
   ref = new Firebase(Settings.Url+'/')
 
   if $routeParams.messageid
+    single = true
     $scope.message = angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message')
+    $scope.link = $routeParams.slug
   else if $routeParams.slug
     $scope.class = angularFire(ref.child($routeParams.slug), $scope, 'class')
     $scope.link = $routeParams.slug
@@ -17,6 +19,11 @@ MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire
     if email isnt undefined
       md5(email.trim().toLowerCase())
     return
+
+  if single
+    $scope.sendReview = ()->
+      $scope.message.reviews.push({email: $scope.email, value: $scope.grade, notes: $scope.notes})
+
 
   $scope.color = (avg)->
     color = 'danger'

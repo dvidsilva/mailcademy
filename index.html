@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang='en-US' data-ng-app='MailCademy'>
 <head>
   <script src="https://cdn.firebase.com/v0/firebase.js"></script>
@@ -7,6 +7,9 @@
   <script src='/build/app.js' ></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
+
+
   <meta charset='utf-8'>
   <link rel='shortcut icon' href='favicon.ico' />
   <meta http-equiv='cleartype' content='on'>
@@ -33,7 +36,7 @@
       <ul data-nav-menu class="nav navbar-nav">
         <li><a href='/#/'>Home</a></li>
         <li><a href='/#/classes'>Classes</a></li>
-        <li><a href='/#/notifications'>Notifications <span class='badge'>{{messagescount}}</span></a></li>
+        <!--<li><a href='/#/notifications'>Notifications <span class='badge'>{{messagescount}}</span></a></li>-->
       </ul>
     </div>
   </nav>

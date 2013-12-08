@@ -1,4 +1,4 @@
-var App, MailCademy, disqus_shortname;
+var App, MailCademy, auth, chatRef, disqus_shortname;
 
 MailCademy = angular.module('MailCademy', ['firebase', 'ngRoute']);
 
@@ -14,6 +14,16 @@ disqus_shortname = 'mailcademy';
   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
   return (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
+
+chatRef = new Firebase('https://mailcademy.firebaseio.com/');
+
+auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+  if (error) {
+    return console.log(error);
+  } else if (user) {
+    return console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+  }
+});
 
 MailCademy.constant('Settings', {
   Views: 'ng/views/',
@@ -108,10 +118,12 @@ var Class;
 
 MailCademy.controller('Class', [
   '$scope', '$routeParams', 'Settings', 'angularFire', Class = function($scope, $routeParams, Settings, angularFire) {
-    var ref;
+    var ref, single;
     ref = new Firebase(Settings.Url + '/');
     if ($routeParams.messageid) {
+      single = true;
       $scope.message = angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message');
+      $scope.link = $routeParams.slug;
     } else if ($routeParams.slug) {
       $scope["class"] = angularFire(ref.child($routeParams.slug), $scope, 'class');
       $scope.link = $routeParams.slug;
@@ -130,6 +142,15 @@ MailCademy.controller('Class', [
         md5(email.trim().toLowerCase());
       }
     };
+    if (single) {
+      $scope.sendReview = function() {
+        return $scope.message.reviews.push({
+          email: $scope.email,
+          value: $scope.grade,
+          notes: $scope.notes
+        });
+      };
+    }
     return $scope.color = function(avg) {
       var color;
       color = 'danger';

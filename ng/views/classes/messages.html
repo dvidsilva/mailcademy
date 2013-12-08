@@ -13,6 +13,11 @@
         <p>{{message.text}}</p>
         <small>{{message.sender}}</small>
     </blockquote>
+    <ul class='nav nav-pills'>
+      <li data-ng-repeat='attachment in message.attachments'>
+        <a href="{{attachment}}" target='_blank'>{{attachment}}</a>
+      </li>
+    </ul>
   </div>
 </div>
 

@@ -18,3 +18,17 @@ disqus_shortname = 'mailcademy'
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 )()
 
+
+chatRef = new Firebase('https://mailcademy.firebaseio.com/')
+auth = new FirebaseSimpleLogin(chatRef, (error, user) ->
+  if (error)
+    console.log(error)
+  else if (user)
+    console.log('User ID: ' + user.id + ', Provider: ' + user.provider)
+)
+
+#auth.login('facebook', {
+#  rememberMe: true,
+#  scope: 'email,user_likes'
+#})
+
