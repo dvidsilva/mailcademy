@@ -23743,6 +23743,198 @@ function ngViewFactory(   $route,   $anchorScroll,   $compile,   $controller,   
 
 "use strict";var AngularFire;angular.module("firebase",[]).value("Firebase",Firebase),angular.module("firebase").factory("angularFire",["$q","$parse","$timeout",function(a,b,c){return function(d,e,f){var g=new AngularFire(a,b,c,d);return g.associate(e,f)}}]),AngularFire=function(a,b,c,d){if(this._q=a,this._parse=b,this._timeout=c,this._initial=!0,this._remoteValue=!1,"string"==typeof d)throw new Error("Please provide a Firebase reference instead of a URL, eg: new Firebase(url)");this._fRef=d},AngularFire.prototype={associate:function(a,b){var c=this,d=this._q.defer(),e=d.promise;return this._fRef.on("value",function(e){var f=e.val(),g=angular.fromJson(angular.toJson(c._parse(b)(a)));if(!angular.equals(f,g)){if(c._initial){var h=!1,i=Object.prototype.toString;if(f&&i.call(g)==i.call(f))if("[object Array]"==i.call(g))h=g.concat(f),angular.equals(h,f)||(c._fRef.ref().set(h),f=h);else if("[object Object]"==i.call(g)){h=g;for(var j in f)h[j]=f[j];c._fRef.ref().update(h),f=h}null===f&&void 0!==g&&(c._fRef.ref().set(g),f=g),c._initial=!1}var k=!1;d&&(k=d,d=!1),c._timeout(function(){c._resolve(a,b,k,f)})}}),e},disassociate:function(){var a=this;a._unregister&&a._unregister(),this._fRef.off("value")},_resolve:function(a,b,c,d){var e=this,f=angular.fromJson(angular.toJson(this._parse(b)(a)));if(null===d&&"object"==typeof f){var g=Object.prototype.toString;d=g.call(f)==g.call([])?[]:{}}this._remoteValue=angular.copy(d),this._parse(b).assign(a,angular.copy(d)),c&&(c.resolve(function(){e.disassociate()}),this._watch(a,b))},_watch:function(a,b){var c=this;c._unregister=a.$watch(b,function(){if(!c._initial){var d=angular.fromJson(angular.toJson(c._parse(b)(a)));if(!angular.equals(d,c._remoteValue)){var e=Object.prototype.toString;"[object Object]"==e.call(d)?c._fRef.set?c._fRef.set(d):c._fRef.ref().update(d):c._fRef.ref().set(d)}}},!0),a.$on("$destroy",function(){c.disassociate()})},_log:function(a){console&&console.log&&console.log(a)}},angular.module("firebase").factory("angularFireCollection",["$timeout",function(a){return function(b,c,d){function e(a,b){d&&"function"==typeof d&&d(a,b)}function f(a){return a?n[a]+1:0}function g(a,b){n[b.$id]=a,o.splice(a,0,b)}function h(a){var b=n[a];o.splice(b,1),n[a]=void 0}function i(a,b){o[a]=b}function j(a,b,c){o.splice(a,1),o.splice(b,0,c),k(a,b)}function k(a,b){var c=o.length;b=b||c,b>c&&(b=c);for(var d=a;b>d;d++){var e=o[d];e.$index=n[e.$id]=d}}if("string"==typeof b)throw new Error("Please provide a Firebase reference instead of a URL, eg: new Firebase(url)");var l=function(a,b){this.$ref=a.ref(),this.$id=a.name(),this.$index=b,angular.extend(this,{$priority:a.getPriority()},a.val())},m=[function(a){return null==a.$priority?0:angular.isNumber(a.$priority)?1:angular.isString(a.$priority)?2:void 0},function(a){return a.$priority?a.$priority:1/0},function(a){return a.$id}],n={},o=[];return c&&"function"==typeof c&&b.once("value",c),b.on("child_added",function(b,c){a(function(){var a=f(c),d=new l(b,a);g(a,d),k(a),e("item_added",d)})}),b.on("child_removed",function(b){a(function(){var a=b.name(),c=n[a],d=o[c];h(a),k(c),e("item_removed",d)})}),b.on("child_changed",function(b,c){a(function(){var a=n[b.name()],d=f(c),g=new l(b,a);e("item_removed",o[a]),i(a,g),d!==a&&j(a,d,g),e("item_added",g)})}),b.on("child_moved",function(b,c){a(function(){var a=n[b.name()],d=f(c),g=o[a];j(a,d,g),e("item_moved",g)})}),o.getByName=function(a){return o[n[a]]},o.getByNames=function(a){for(var b=[],c=0,d=a.length;d>c;c++)b.push(o[n[a[c]]]);return b},o.add=function(a,c){var d,e=angular.fromJson(angular.toJson(a));return d=c?b.ref().push(e,c):b.ref().push(e)},o.remove=function(a,b){var c=angular.isString(a)?o[n[a]]:a;b?c.$ref.remove(b):c.$ref.remove()},o.update=function(a,b){var c=angular.isString(a)?o[n[a]]:a,d=angular.fromJson(angular.toJson(c));b?c.$ref.update(d,b):c.$ref.update(d)},o.set=function(a,b){var c=angular.isString(a)?o[n[a]]:a,d=angular.fromJson(angular.toJson(c));b?c.$ref.set(d,b):c.$ref.set(d)},o.order=m,o}}]),angular.module("firebase").factory("angularFireAuth",["$injector","$rootScope","$parse","$timeout","$location","$q",function(a,b,c,d,e,f){function g(a){for(var b="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",c="",d="",e=8,f=0;f<a.length&&"="!=a[f];++f){var g=b.indexOf(a.charAt(f));if(-1==g)throw new Error("Not base64.");for(var h=g.toString(2);h.length<6;)h="0"+h;for(d+=h;d.length>=e;){var i=d.slice(0,e);d=d.slice(e),c+=String.fromCharCode(parseInt(i,2))}}return c}function h(a){var b=a.split(".");if(!b instanceof Array||3!==b.length)throw new Error("Invalid JWT");var c="",d=b[1];return c=window.atob?window.atob(d):g(d),JSON.parse(decodeURIComponent(escape(c)))}function i(a,b,e,f){b&&d(function(){c(b).assign(a,e),f()})}function j(a,b,c){a.authRequired&&!c._authenticated&&(c._redirectTo=void 0===a.pathTo?e.path():a.pathTo===b?"/":a.pathTo,e.replace(),e.path(b))}var k=null;return a.has("$route")&&(k=a.get("$route")),{initialize:function(a,c){var d=this;if("string"==typeof a)throw new Error("Please provide a Firebase reference instead of a URL, eg: new Firebase(url)");if(c=c||{},this._scope=b,!c.scope)throw new Error("Scope not provided to angularFireAuth!");if(this._scope=c.scope,!c.name)throw new Error("Model name not provided to angularFireAuth!");if(this._name=c.name,this._cb=function(){},c.callback&&"function"==typeof c.callback&&(this._cb=c.callback),this._redirectTo=null,this._authenticated=!1,c.path&&null!==k&&(k.current&&j(k.current,c.path,d),b.$on("$routeChangeStart",function(a,b){j(b,c.path,d)})),this._ref=a,c.simple===!1)return i(this._scope,this._name,null,function(){}),void 0;if(!window.FirebaseSimpleLogin){var e=new Error("FirebaseSimpleLogin undefined, did you include firebase-simple-login.js?");return b.$broadcast("angularFireAuth:error",e),void 0}var f=new FirebaseSimpleLogin(this._ref,function(a,c){d._cb(a,c),a?b.$broadcast("angularFireAuth:error",a):c?d._loggedIn(c):d._loggedOut()});this._authClient=f},login:function(a,c){var d=this._watchForLogin();switch(a){case"github":case"persona":case"twitter":case"facebook":case"password":if(this._authClient)this._authClient.login(a,c);else{var e=new Error("Simple Login not initialized");b.$broadcast("angularFireAuth:error",e)}break;default:var f,g=this;try{f=h(a),this._ref.auth(a,function(a){a?b.$broadcast("angularFireAuth:error",a):g._loggedIn(f)})}catch(i){b.$broadcast("angularFireAuth:error",i)}}return d},createUser:function(a,c,e,f){var g=this;this._authClient.createUser(a,c,function(h,i){try{h?b.$broadcast("angularFireAuth:error",h):f||g.login("password",{email:a,password:c})}catch(j){b.$broadcast("angularFireAuth:error",j)}e&&d(function(){e(h,i)})})},logout:function(){this._authClient?this._authClient.logout():(this._ref.unauth(),this._loggedOut())},_loggedIn:function(a){var c=this;this._authenticated=!0,i(this._scope,this._name,a,function(){b.$broadcast("angularFireAuth:login",a),c._redirectTo&&(e.replace(),e.path(c._redirectTo),c._redirectTo=null)})},_loggedOut:function(){this._authenticated=!1,i(this._scope,this._name,null,function(){b.$broadcast("angularFireAuth:logout")})},_watchForLogin:function(){function a(a,b){d(function(){a?e.reject(a):e.resolve(b)});for(var f=0;f<c.length;f++)c[f]()}var c=[],e=f.defer();return c.push(b.$on("angularFireAuth:login",function(b,c){a(null,c)})),c.push(b.$on("angularFireAuth:error",function(b,c){a(c,null)})),e.promise}}}]);
 
+(function () {
+	md5 = function (string) {
+
+		function cmn(q, a, b, x, s, t) {
+			a = add32(add32(a, q), add32(x, t));
+			return add32((a << s) | (a >>> (32 - s)), b);
+		}
+
+
+		function ff(a, b, c, d, x, s, t) {
+			return cmn((b & c) | ((~b) & d), a, b, x, s, t);
+		}
+
+		function gg(a, b, c, d, x, s, t) {
+			return cmn((b & d) | (c & (~d)), a, b, x, s, t);
+		}
+
+		function hh(a, b, c, d, x, s, t) {
+			return cmn(b ^ c ^ d, a, b, x, s, t);
+		}
+
+		function ii(a, b, c, d, x, s, t) {
+			return cmn(c ^ (b | (~d)), a, b, x, s, t);
+		}
+
+
+
+		function md5cycle(x, k) {
+			var a = x[0], b = x[1], c = x[2], d = x[3];
+
+			a = ff(a, b, c, d, k[0], 7, -680876936);
+			d = ff(d, a, b, c, k[1], 12, -389564586);
+			c = ff(c, d, a, b, k[2], 17,  606105819);
+			b = ff(b, c, d, a, k[3], 22, -1044525330);
+			a = ff(a, b, c, d, k[4], 7, -176418897);
+			d = ff(d, a, b, c, k[5], 12,  1200080426);
+			c = ff(c, d, a, b, k[6], 17, -1473231341);
+			b = ff(b, c, d, a, k[7], 22, -45705983);
+			a = ff(a, b, c, d, k[8], 7,  1770035416);
+			d = ff(d, a, b, c, k[9], 12, -1958414417);
+			c = ff(c, d, a, b, k[10], 17, -42063);
+			b = ff(b, c, d, a, k[11], 22, -1990404162);
+			a = ff(a, b, c, d, k[12], 7,  1804603682);
+			d = ff(d, a, b, c, k[13], 12, -40341101);
+			c = ff(c, d, a, b, k[14], 17, -1502002290);
+			b = ff(b, c, d, a, k[15], 22,  1236535329);
+
+			a = gg(a, b, c, d, k[1], 5, -165796510);
+			d = gg(d, a, b, c, k[6], 9, -1069501632);
+			c = gg(c, d, a, b, k[11], 14,  643717713);
+			b = gg(b, c, d, a, k[0], 20, -373897302);
+			a = gg(a, b, c, d, k[5], 5, -701558691);
+			d = gg(d, a, b, c, k[10], 9,  38016083);
+			c = gg(c, d, a, b, k[15], 14, -660478335);
+			b = gg(b, c, d, a, k[4], 20, -405537848);
+			a = gg(a, b, c, d, k[9], 5,  568446438);
+			d = gg(d, a, b, c, k[14], 9, -1019803690);
+			c = gg(c, d, a, b, k[3], 14, -187363961);
+			b = gg(b, c, d, a, k[8], 20,  1163531501);
+			a = gg(a, b, c, d, k[13], 5, -1444681467);
+			d = gg(d, a, b, c, k[2], 9, -51403784);
+			c = gg(c, d, a, b, k[7], 14,  1735328473);
+			b = gg(b, c, d, a, k[12], 20, -1926607734);
+
+			a = hh(a, b, c, d, k[5], 4, -378558);
+			d = hh(d, a, b, c, k[8], 11, -2022574463);
+			c = hh(c, d, a, b, k[11], 16,  1839030562);
+			b = hh(b, c, d, a, k[14], 23, -35309556);
+			a = hh(a, b, c, d, k[1], 4, -1530992060);
+			d = hh(d, a, b, c, k[4], 11,  1272893353);
+			c = hh(c, d, a, b, k[7], 16, -155497632);
+			b = hh(b, c, d, a, k[10], 23, -1094730640);
+			a = hh(a, b, c, d, k[13], 4,  681279174);
+			d = hh(d, a, b, c, k[0], 11, -358537222);
+			c = hh(c, d, a, b, k[3], 16, -722521979);
+			b = hh(b, c, d, a, k[6], 23,  76029189);
+			a = hh(a, b, c, d, k[9], 4, -640364487);
+			d = hh(d, a, b, c, k[12], 11, -421815835);
+			c = hh(c, d, a, b, k[15], 16,  530742520);
+			b = hh(b, c, d, a, k[2], 23, -995338651);
+
+			a = ii(a, b, c, d, k[0], 6, -198630844);
+			d = ii(d, a, b, c, k[7], 10,  1126891415);
+			c = ii(c, d, a, b, k[14], 15, -1416354905);
+			b = ii(b, c, d, a, k[5], 21, -57434055);
+			a = ii(a, b, c, d, k[12], 6,  1700485571);
+			d = ii(d, a, b, c, k[3], 10, -1894986606);
+			c = ii(c, d, a, b, k[10], 15, -1051523);
+			b = ii(b, c, d, a, k[1], 21, -2054922799);
+			a = ii(a, b, c, d, k[8], 6,  1873313359);
+			d = ii(d, a, b, c, k[15], 10, -30611744);
+			c = ii(c, d, a, b, k[6], 15, -1560198380);
+			b = ii(b, c, d, a, k[13], 21,  1309151649);
+			a = ii(a, b, c, d, k[4], 6, -145523070);
+			d = ii(d, a, b, c, k[11], 10, -1120210379);
+			c = ii(c, d, a, b, k[2], 15,  718787259);
+			b = ii(b, c, d, a, k[9], 21, -343485551);
+
+			x[0] = add32(a, x[0]);
+			x[1] = add32(b, x[1]);
+			x[2] = add32(c, x[2]);
+			x[3] = add32(d, x[3]);
+
+		}
+
+
+		function md51(s) {
+			txt = '';
+			var n = s.length,
+			state = [1732584193, -271733879, -1732584194, 271733878], i;
+			for (i=64; i<=n; i+=64) {
+				md5cycle(state, md5blk(s.substring(i-64, i)));
+			}
+			s = s.substring(i-64);
+			var tail = [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0], sl=s.length;
+			for (i=0; i<sl; i++) 	tail[i>>2] |= s.charCodeAt(i) << ((i%4) << 3);
+			tail[i>>2] |= 0x80 << ((i%4) << 3);
+			if (i > 55) {
+				md5cycle(state, tail);
+				i=16;
+				while (i--) { tail[i] = 0 }
+	//			for (i=0; i<16; i++) tail[i] = 0;
+			}
+			tail[14] = n*8;
+			md5cycle(state, tail);
+			return state;
+		}
+
+		/* there needs to be support for Unicode here,
+		 * unless we pretend that we can redefine the MD-5
+		 * algorithm for multi-byte characters (perhaps
+		 * by adding every four 16-bit characters and
+		 * shortening the sum to 32 bits). Otherwise
+		 * I suggest performing MD-5 as if every character
+		 * was two bytes--e.g., 0040 0025 = @%--but then
+		 * how will an ordinary MD-5 sum be matched?
+		 * There is no way to standardize text to something
+		 * like UTF-8 before transformation; speed cost is
+		 * utterly prohibitive. The JavaScript standard
+		 * itself needs to look at this: it should start
+		 * providing access to strings as preformed UTF-8
+		 * 8-bit unsigned value arrays.
+		 */
+		function md5blk(s) { 		/* I figured global was faster.   */
+			var md5blks = [], i; 	/* Andy King said do it this way. */
+			for (i=0; i<64; i+=4) {
+			md5blks[i>>2] = s.charCodeAt(i)
+			+ (s.charCodeAt(i+1) << 8)
+			+ (s.charCodeAt(i+2) << 16)
+			+ (s.charCodeAt(i+3) << 24);
+			}
+			return md5blks;
+		}
+
+		var hex_chr = '0123456789abcdef'.split('');
+
+		function rhex(n)
+		{
+			var s='', j=0;
+			for(; j<4; j++)	s += hex_chr[(n >> (j * 8 + 4)) & 0x0F]	+ hex_chr[(n >> (j * 8)) & 0x0F];
+			return s;
+		}
+
+		function hex(x) {
+			var l=x.length;
+			for (var i=0; i<l; i++)	x[i] = rhex(x[i]);
+			return x.join('');
+		}
+
+		/* this function is much faster,
+		so if possible we use it. Some IEs
+		are the only ones I know of that
+		need the idiotic second function,
+		generated by an if clause.  */
+
+		function add32(a, b) {
+			return (a + b) & 0xFFFFFFFF;
+		}
+
+		if (hex(md51("hello")) != "5d41402abc4b2a76b9719d911017c592") {
+			function add32(x, y) {
+				var lsw = (x & 0xFFFF) + (y & 0xFFFF),
+				msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+				return (msw << 16) | (lsw & 0xFFFF);
+			}
+		}
+
+		return hex(md51(string));
+	}	
+})();
+
+
 /*!
  * Sizzle CSS Selector Engine v@VERSION
  * http://sizzlejs.com/

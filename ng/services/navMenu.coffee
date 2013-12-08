@@ -15,13 +15,20 @@ MailCademy.directive('navMenu', ($location) ->
         currentLink = pathLink
         currentLink.parentElement.classList.add('active')
     )
-).directive('breadcrumb', ($location) ->
+).directive('breadcrumb', ['$location',($location) ->
   return (scope, element, attrs)->
-    scope.link = ''
-    scope.text = ''
-    scope.$on('$routeChangeStart', () ->
-      scope.link = $location.path()
-      scope.text = $location.path().replace('/','')
+    scope.$on('$routeChangeStart', (event, next, current) ->
+      scope.classes = false
+      scope.class = false
+      scope.action = false
+      if next.params.slug
+        scope.classes = true
+        scope.class = next.params.slug
+      if next.params.action
+        scope.action = next.params.action
+      if $location.path().match('classes')
+        scope.classes = true
+      return
     )
-)
+])
 

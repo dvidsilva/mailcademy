@@ -33,9 +33,7 @@
       <ul data-nav-menu class="nav navbar-nav">
         <li><a href='/#/'>Home</a></li>
         <li><a href='/#/classes'>Classes</a></li>
-        <li><a href='/#/messages'>Messages <span class='badge'>{{messagescount}}</span></a></li>
-        <li><a href='/#/lists'>Lists</a></li>
-        <li><a href='/#/students'>Students</a></li>
+        <li><a href='/#/notifications'>Notifications <span class='badge'>{{messagescount}}</span></a></li>
       </ul>
     </div>
   </nav>
@@ -43,10 +41,12 @@
 
 <ol data-breadcrumb class="breadcrumb">
   <li><a href="/#/">Home</a></li>
-  <li><a href="/#{{link}}">{{text}}</a></li>
+  <li data-ng-show='classes'><a href="/#/classes/" >Classes</a></li>
+  <li data-ng-show='class'  ><a href="/#/class/{{class}}" >{{class}}</a></li>
+  <li data-ng-show='action'  ><a>{{action}}</a></li>
 </ol>
-
-
-<section class='content' data-ng-view ></section>
+<div class='container'>
+  <section class='content' data-ng-view ></section>
+</div>
 </body>
 </html>
