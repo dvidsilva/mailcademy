@@ -1,0 +1,40 @@
+<div id="trash-header">
+  <div id="sort-by">
+    <select>
+      <option value="sort-by-option">Sort By</option>
+      <option value="by-created">Date Created</option>
+      <option value="by-alpha">A-Z</option>
+      <option value="by-modified">Last Modified</option>
+      <option value="by-children">Children</option>
+      <option value="by-children">Custom</option>
+    </select>
+  </div>
+</div>
+<ul class='trash-list'>
+  <li data-ng-repeat='spark in sparks' class='spark spark{{spark.id}}' data-drag="true">
+       <a href='#'>
+      <i class='date'>
+        <span class='month-name'>{{spark.timestamp | date:'MMM'}}</span>
+        <span class='date-number'>{{spark.timestamp | date:'dd'}}</span>
+      </i>
+    </a>
+      <h2 class='spark-trash-title'>
+        <a href='/#/battery/{{spark.id}}'>{{spark.title}}</a>
+      </h2>
+      <i class='spark-content'>
+        <p>{{spark.description}}</p>
+        <div data-ng-if='spark.extra' class=' list_spark_media '>
+          <img src='{{spark.imgurl}}' data-ng-if='spark.type == "img"'/>
+        </div>
+      </i>
+      <a class='restore-button' data-ng-click='Restore(spark)'></a>
+      <span class="restore-text">RESTORE</span>
+  </li>
+</ul>
+<div class="empty-trash" data-ng-click='emptyTrash()'>
+  <span>EMPTY TRASH</span>
+</div>
+<div class="pagination hidden">
+  <span class="prev-page">< PREVIOUS PAGE</span>
+  <span class="next-page">NEXT PAGE ></span>
+</div>

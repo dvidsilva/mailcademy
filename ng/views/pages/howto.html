@@ -1,0 +1,39 @@
+<div class="how-to" data-ng-if='show' >
+    <div class="welcome" ng-show="firstDiv">
+      <h2>Welcome to <span id="idea">Idea</span><span id="jot">Jot</span></h2>
+      <span>The best place to jot your ideas, or <em>Sparks</em> as we call them. A <em>Spark</em> is an idea or note and possibly a photo to help you remember it. You can edit your <em>Sparks</em> anytime on any device. Let's add your first <em>Spark</em>.</span>
+      <div class="arrow" ng-show="arrow"></div>
+      <button class="get-started" data-ng-click="howToStart('firstDiv', 'secondDiv', 'third', 'arrow')">GET STARTED</button>
+      <button class="close" data-ng-click="howToClose('firstDiv')">SKIP</button>
+    </div>
+    <div class="how-to-create" ng-show="secondDiv">
+      <h2>Create a Spark</h2>
+      <span class="create-help" ng-show="third">Enter the name of your <em>Spark</em> into this main input.<br>This is enough information to create a <em>Spark</em>.</span>
+      <span class="how-to-add-details" ng-show="fourth">Let's give your <em>Spark</em> a description with more detail.<br><img style="margin: 10px 0px 0px 0px" src="../assets/images/input-demo.jpg"></span>
+      <span class="how-to-add-image" ng-show="fifth">And while you are at it let's add an image <img src="../assets/images/CAMERA.png"> to help you remember what we are talking about.</span>
+      <span class="how-to-create-button" ng-show="sixth">Now press <img src="../assets/images/create-demo.png" width="30px">  or 'Enter' to add this new <em>Spark</em> to your <em>Battery </em><img src="../assets/images/battery-demo.png"></span>
+      <button class="next-step" ng-click="createSteps('arrow')">NEXT STEP</button>
+      <button class="close" data-ng-click="howToClose('firstDiv')">SKIP</button>
+      <div class="arrow" ng-show="arrow"></div>
+    </div>
+    <div class="how-to-open-spark" ng-show="thirdDiv">
+      <h2>Your First Spark!</h2>
+      <span class="how-to-edit-spark" ng-show="seventh">On this page you can edit your <em>Spark</em>.<br>Click directly onto the title or description and start typing. <br>All of your changes are saved automatically as you type.</span>
+      <span class="how-to-add-children" ng-show="eighth">Any <em>Sparks</em> created on this page are automatically added to this <em>Spark</em> to elaborate on your main idea. Let's add a 'child' <em>Spark</em> to this idea.</span>
+      <span class="how-to-nav" ng-show="ninth">Now let's open the menu <img src="../assets/images/menu-demo.png" width="30px"> and select your Battery <img src="../assets/images/battery-demo.png"></span>
+      <br>
+      <button class="next-step" ng-click="sparkSteps()">NEXT STEP</button>
+      <button class="close" data-ng-click="howToClose('firstDiv')">SKIP</button>
+    </div>
+    <div class="how-to-battery" ng-show="fourthDiv">
+      <h2>Your Battery</h2>
+      <span class="how-to-battery-intro" ng-show="tenth">The <em>Battery</em> is where your <em>Sparks</em> are stored. In this view you see only the top level <em>Sparks</em> (<em>Sparks</em> with no parents).</span>
+      <span class="how-to-battery-create" ng-show="eleventh">You can create a new <em>Spark</em> here and it will be saved in the <em>Battery</em> <img src="../assets/images/battery-demo.png">. Let's do that now.</span>
+      <span class="how-to-drag" ng-show="twelfth">If you think that a <em>Spark</em> should be part of another set of ideas you can drag and drop it onto that <em>Spark</em>. Try it with the <em>Spark</em> we just created.</span>
+      <span class="how-to-trash" ng-show="thirteenth">If you delete a <em>Spark</em> it is sent to the Trash Bin <img src="../assets/images/trash-demo.png" width="30px">. It is kept there until you empty your trash.</span>
+      <br>
+      <button class="next-step" ng-click="batterySteps()" ng-show="batteryNext">NEXT STEP</button>
+      <button class="finishBtn" ng-show="finish" data-ng-click="howToClose('fourthDiv')">FINISH</button>
+      <button class="close" data-ng-click="howToClose('firstDiv')">SKIP</button>
+    </div>
+</div>

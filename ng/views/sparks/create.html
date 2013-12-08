@@ -1,0 +1,31 @@
+<!-- start camera dialog -->
+<div id="camera-dialog" class="upload-box  closed">
+    <input type="text" class="img-url-input" placeholder="Enter image or youtube URL" ng-model='spark.imgurl'>
+    <div class="input-button-wrapper">
+        <div class="input-button" data-ng-click='toggleUpload()'></div>
+    </div>
+    <div class="upload-selection-wrapper">
+        <div class='' id='googleDrive'>
+            <input type="file" class="choose-file" id="filePicker" style='display:none'/>
+        </div>
+        <br>
+        <span>upload to: </span>
+        <img src="../assets/images/Logo_of_Google_Drive.png" class="upload-logo">
+    </div>
+    <button class="cancel-file" data-ng-click="cancelUpload()">CANCEL</button>
+</div>
+<!-- end camera dialog -->
+<div class="front-page-input" id='createSpark' data-ng-show='auth'>
+    <div class="camera-button" data-ng-click="toggleUpload()">
+        <img data-ng-src='{{spark.thumbnail}}' class='gdrive-upload-thumb' data-ng-if='spark.thumbnail' />
+    </div>
+    <div class="front-page-input-wrapper">
+        <input class="spark-input" placeholder="{{placeholder}}" data-ng-model='spark.title' ng-click='toggleWrapper()' data-ng-keypress='Enter($event)' >
+        <div class="input-button-wrapper">
+            <div class="input-button" data-ng-click='Create()'></div>
+        </div>
+    </div>
+    <div class="spark-content-input-wrapper">
+        <input class="spark-content-input" placeholder=" Enter a description of your idea here (optional)" data-ng-model='spark.description' data-ng-keypress='Enter($event)'>
+    </div>
+</div>

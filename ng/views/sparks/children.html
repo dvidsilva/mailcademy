@@ -1,0 +1,33 @@
+<ul class='battery-list children'>
+  <li data-ng-repeat='spark in children' class='spark' data-drag="spark">
+    <div class='dropzone' data-drop='parent' when-drop="nest" data-id='{{spark.id}}' ng-mouseout="dragMouseOut()" when-enter='dropHoverStart' when-leave='dropHoverEnd' ></div>
+    <a>
+      <i class='date'>
+        <span class='month-name'>{{spark.timestamp | date:'MMM'  }}</span>
+        <span class='date-number'>{{spark.timestamp | date:'dd'}}</span>
+      </i>
+    </a>
+    <div class="census hidden">
+        <span class="child-count">6</span>
+        <span class="family-count">32</span>
+    </div>
+      <h2 class='spark-title'>
+        <a href='/#/battery/{{spark.id}}' >
+          {{spark.title}}
+        </a>
+      </h2>
+      <a href='/#/battery/{{spark.id}}' >
+        <i class='spark-content'>
+          <p>{{spark.description}}</p>
+          <div data-ng-if='spark.extra' class=' list_spark_media '>
+            <img data-ng-src='{{spark.imgurl}}' data-ng-if='spark.imgurl'/>
+          </div>
+        </i>
+      </a>
+      <div class='buttons'>
+        <a class='unnest-button' data-ng-click='unnest(spark)' title='Return this spark to the main battery'></a>
+        <a class='delete-button' data-ng-click='Delete(spark, true)' title='Move this spark to the trash'></a>
+      </div>
+  </li>
+</ul>
+

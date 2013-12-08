@@ -1,0 +1,55 @@
+<div class='error {{error.type}}' data-ng-if='error' >{{error.text}}</div>
+<div id='spark' data-ng-repeat='spark in sparks' class='open-spark' data-ng-animate="{enter: 'shake', leave: 'shake'}">
+    <div class='buttons'>
+        <a class='delete-button hidden' data-ng-click='Delete(spark)'></a>
+        <a class='save-button hidden' data-ng-click='Update(spark)'><span>SAVE</span></a>
+        <a class='edit-button hidden' data-ng-click='Edit(spark)'><span>EDIT</span></a>
+    </div>
+    <a href='#'>
+      <i class='date'>
+        <span class='month-name'>{{spark.timestamp | date:'MMM'  }}</span>
+        <span class='date-number'>{{spark.timestamp | date:'dd'}}</span>
+      </i>
+    </a>
+    <input class='open-spark-title' data-ng-model='spark.title' contenteditable='true' data-ng-blur='Update(spark)'>
+    <textarea class='open-spark-content' data-ng-model='spark.description' data-ng-blur='Update(spark)' placeholder="Enter a description of your idea here. Your changes are saved automatically"></textarea>
+    <div id="textarea-footer"></div>
+    <div data-ng-if='spark.extra' class=' spark_media '>
+        <img data-ng-src='{{spark.imgurl}}' data-ng-if='spark.type == "img"'/>
+        <div class='youtube' data-ng-if='spark.type == "youtube"'>
+            <iframe type="text/html" width="560" height="315" data-ng-src="{{spark.youtubeurl}}" frameborder="0" ></iframe>
+        </div>
+    </div>
+    <div id="add-to-spark">
+        <span>Add to this Spark using the input below.</span>
+    </div>
+    <div class="add-an-image hidden">
+        <img src="../assets/images/GRAY_CAMERA.png">
+        <span>add an image</span>
+    </div>
+    <div class="upload-selection-wrapper hidden">
+        <div class='' id='googleDrive'>
+          <input type="file" class="choose-file" id="filePicker" style='display:none'/>
+        </div>
+        <br>
+        <span>upload to: </span>
+        <img src="../assets/images/Logo_of_Google_Drive.png" class="upload-logo">
+    </div>
+    <div class="count-numbers">
+        <span class="child-count"></span>
+        <span class="family-count"></span>
+    </div>
+</div>
+<div id="sort-by" class="hidden">
+  <select>
+    <option value="sort-by-option">Sort By</option>
+    <option value="by-created">Date Created</option>
+    <option value="by-alpha">A-Z</option>
+    <option value="by-modified">Last Modified</option>
+    <option value="by-children">Children</option>
+    <option value="by-children">Custom</option>
+  </select>
+</div>
+
+
+<div class='children' data-ng-if='children' data-ij-spark-children></div>

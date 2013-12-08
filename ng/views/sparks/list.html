@@ -1,0 +1,45 @@
+<div id="battery-header">
+  <div id="sort-by">
+    <select>
+      <option value="sort-by-option">Sort By</option>
+      <option value="by-created">Date Created</option>
+      <option value="by-alpha">A-Z</option>
+      <option value="by-modified">Last Modified</option>
+      <option value="by-children">Children</option>
+      <option value="by-children">Custom</option>
+    </select>
+  </div>
+</div>
+<ul class='battery-list'>
+  <li data-ng-repeat='spark in sparks' class='spark' data-drag='spark'>
+  <div class='dropzone' data-drop='parent' when-drop="nest" data-id='{{spark.id}}' ng-mouseout="dragMouseOut()" when-enter='dropHoverStart' when-leave='dropHoverEnd' ></div>
+    <a>
+      <i class='date'>
+        <span class='month-name'>{{spark.timestamp | date:'MMM'  }}</span>
+        <span class='date-number'>{{spark.timestamp | date:'dd'}}</span>
+      </i>
+    </a>
+    <div class="census hidden">
+        <span class="child-count">6</span>
+        <span class="family-count">32</span>
+    </div>
+      <h2 class='spark-title'>
+        <a href='/#/battery/{{spark.id}}' >
+          {{spark.title}}
+        </a>
+      </h2>
+      <a href='/#/battery/{{spark.id}}' >
+        <i class='spark-content'>
+          <p>{{spark.description}}</p>
+          <div data-ng-if='spark.extra' class=' list_spark_media '>
+            <img data-ng-src='{{spark.imgurl}}' data-ng-if='spark.imgurl'/>
+          </div>
+        </i>
+      </a>
+      <a class='delete-button' data-ng-click='Delete(spark)'></a>
+  </li>
+</ul>
+<div class="pagination hidden">
+  <span class="prev-page">< PREVIOUS PAGE</span>
+  <span class="next-page">NEXT PAGE ></span>
+</div>

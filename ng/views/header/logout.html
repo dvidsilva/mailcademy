@@ -1,0 +1,84 @@
+<div class="header">
+   <!--start login-->
+  <div class="login-form " >
+    <form novalidate name='form'>
+       <div data-ng-class="{true:'hidden', false:''}[auth==true]">
+        <p>Sign in to <span id="idea">Idea</span><span id="jot">Jot</span> to store your ideas.</p>
+        <input class="email-input" name='email' data-ng-model='user.email' placeholder="email address" required type='email'>
+        <input type="password" name='password' class="password-input mainpass" placeholder="password" data-ng-model='user.password' required data-ng-minlength='6'>
+
+        <div class='error {{error.type}}' data-ng-show='error' >{{error.text}}</div>
+        <div id="login-info">
+          <div class="login-button">
+              <input type="submit" value="Login" data-ng-click="login()">
+          </div>
+           <input type="submit" class="create-account-button" value="Create account" data-ng-click="signup()">
+      
+          <div class='gplus-login-button' >
+            <span id="signinButton" data-ng-hide='auth' >
+              <span data-g-plus
+                  class="g-signin"
+                  data-callback="gPlusCallback"
+                  data-clientid="682412971949-btmi3epiohu7p9mla9hfsvtnjssbcli9.apps.googleusercontent.com"
+                  data-cookiepolicy="single_host_origin"
+                  data-approvalprompt="auto"
+                  data-acesstype="offline"
+                  data-scope="https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email">
+              </span>
+            </span>
+          </div>
+        </div>
+        
+
+    </div>
+        <span class="password-reminder" data-ng-show='false'>Forgot your password?</span>
+      </div>
+    </form>
+  </div>
+      <!--start settings list -->
+      <ul class="settings" data-ng-class="{true:'hidden', false:''}[auth==false]">
+        <li id="account-settings" data-ng-click='goTo("/account")'>
+          <span>ACCOUNT SETTINGS</span>
+          <img src="../assets/images/account-settings.png" id="account-settings-img" alt="account settings icon">
+          <hr>
+        </li>
+        <li id="security-settings" data-ng-click='goTo("/security")'>
+          <span>SECURITY SETTINGS</span>
+          <img src="../assets/images/security-settings.png" id="security-settings-img" alt="security settings icon">
+          <hr>
+        </li>
+        <li id="profile-settings" data-ng-click='goTo("/profile")'>
+          <span>EDIT PROFILE</span>
+          <img src="../assets/images/profile-settings.png" id="profile-settings-img" alt="profile settings icon">
+        </li>
+      </ul>
+      <!--end settings list -->
+    </div>
+   <!--end login -->
+
+   <!--start page header -->
+    <div class="page-header">
+      <input class="search-input" placeholder=" Search, type and hit enter">
+      <div class="login-button-wrapper">
+      <div class="submit-button" data-ng-class="{true:'hidden', false:''}[auth==true]">
+        <input type="submit" value="Sign in" data-ng-click="toggleLogin()">
+      </div>
+      <span id="welcome" data-ng-if='auth' data-ng-click="toggleLogin()">Welcome {{user.name}}</span>
+      <span id="logout-text" data-ng-class="{true:'', false:'hidden'}[auth==true]" data-ng-click='logout()'>Log Out</span>
+      <div class="menu-btn" data-ng-click="toggleNav()"></div>
+      <div id="search-btn" data-ng-click="toggleSearch()"></div>
+    </div>
+    <nav class="main-nav">
+        <a href="/#">
+          <div id="home-btn" data-ng-click="toggleNav()"><span>HOME</span></div>
+        </a>
+        <a data-ng-click='goTo("/battery")'>
+          <div id="battery-btn" data-ng-click="toggleNav()"><span>SPARKS</span></div>
+        </a>
+        <a data-ng-click='goTo("/trash")'>
+        <div id="view-trash-btn" data-ng-click="toggleNav()"><span>TRASH</span></div>
+        </a>
+      </nav>
+    <!-- end page header -->
+
+</div>
