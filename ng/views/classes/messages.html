@@ -1,5 +1,5 @@
 <div class='page-header'>
-  <h1><a href="/#/class/{{link}}" class="">{{class.name}}</a> <small> messages</small></h1>
+  <h1><a href="#/class/{{link}}" class="">{{class.name}}</a> <small> messages</small></h1>
   <p class='lead'>{{class.description}}</p>
 </div>
 <div class="row" data-ng-repeat="(key, message) in class.messages | toArray |orderBy:'order':true" >
@@ -8,7 +8,7 @@
     <span class='label label-{{color(message.average)}}' daga-ng-show='message.homework'><i class='glyphicon glyphicon-check'></i> {{message.average}}</span>
   </div>
   <div class="col-xs-7 col-md-9" >
-    <h3><a href='/#/class/{{link}}/message/{{message.id}}' >{{message.order}} - {{message.subject}}</a></h3>
+    <h3><a href='#/class/{{link}}/message/{{message.id}}' >{{message.order}} - {{message.subject}}</a></h3>
     <blockquote>
         <p>{{message.text}}</p>
         <small>{{message.sender}}</small>
