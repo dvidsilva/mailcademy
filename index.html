@@ -3,8 +3,8 @@
 <head>
   <script src="https://cdn.firebase.com/v0/firebase.js"></script>
   <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
-  <script src='/build/vendor.js' ></script>
-  <script src='/build/app.js' ></script>
+  <script src='./build/vendor.js' ></script>
+  <script src='./build/app.js' ></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
@@ -17,7 +17,7 @@
 
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="/build/style.css">
+  <link rel="stylesheet" href="./build/style.css">
 
 </head>
 <body data-ng-controller='App' >
@@ -34,8 +34,8 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul data-nav-menu class="nav navbar-nav">
-        <li><a href='/#/'>Home</a></li>
-        <li><a href='/#/classes'>Classes</a></li>
+        <li><a href='#/'>Home</a></li>
+        <li><a href='#/classes'>Classes</a></li>
         <!--<li><a href='/#/notifications'>Notifications <span class='badge'>{{messagescount}}</span></a></li>-->
       </ul>
     </div>
@@ -43,9 +43,9 @@
 </header>
 
 <ol data-breadcrumb class="breadcrumb">
-  <li><a href="/#/">Home</a></li>
-  <li data-ng-show='classes'><a href="/#/classes/" >Classes</a></li>
-  <li data-ng-show='class'  ><a href="/#/class/{{class}}" >{{class}}</a></li>
+  <li><a href="#/">Home</a></li>
+  <li data-ng-show='classes'><a href="#/classes/" >Classes</a></li>
+  <li data-ng-show='class'  ><a href="#/class/{{class}}" >{{class}}</a></li>
   <li data-ng-show='action'  ><a>{{action}}</a></li>
 </ol>
 <div class='container'>
