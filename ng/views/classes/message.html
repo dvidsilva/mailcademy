@@ -27,7 +27,7 @@
     <div class='' data-ng-hide='message.reviews'>
       <p>There are no reviews yet</p>
     </div>
-    <ul class='nav nav-pills nav-stacked'>
+    <ul class='nav nav-pills nav-stacked reviews'>
       <li data-ng-repeat='(key, review) in message.reviews track by key'>
         <p><span class='label label-info'>{{review.value}}</span> {{review.email}}</p>
         <p><strong>{{review.notes}}</strong></p>

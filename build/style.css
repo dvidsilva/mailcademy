@@ -4,3 +4,7 @@ body {
 #disqus_thread {
   margin-top:50px;
 }
+
+ul.reviews  li {
+  border: 1px solid lightgray;
+}
