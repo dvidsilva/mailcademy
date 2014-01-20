@@ -1,5 +1,4 @@
 <?php
-
 require_once './config.php';
 require_once './functions.php';
 
@@ -11,9 +10,16 @@ $class = $fb->get($message[0]);
 $class = json_decode($class, true);
 
 
-
-
-$top = count($class['emails']) >= 3 ? 3 : count($class['emails']);
+$c = count($class['emails']);
+if ($c < 1) {
+    echo "THIS CLASS HAS NO EMAILS ASSOCIATED TO IT.";
+    exit;
+}
+if ($class['messages'][$message[2]]['homework'] !== true) {
+    echo "THIS MESSAGE IS NOT RELATING HOMEWORK.";
+    exit;
+}
+$top = $c >= 3 ? 3 : $c;
 
 
 $sendto = array_rand($class['emails'], $top);
@@ -38,7 +44,7 @@ $array['attachments'] = $t;
 foreach ($sendto as $mail) {
     $str = $class['emails'][$mail]['email'] . $message[0] . $message[2];
     $hx = str2hex($str);
-    $array['token'] = base64_encode($hx.$str.$hx)."|=AB=|".time();
+    $array['token'] = base64_encode($hx)."AA=|=AA".base64_encode($str)."|=AB=|".time();
     $array['name'] = $class['emails'][$mail]['name'];
     $array['email'] =  $class['emails'][$mail]['email'];
     $body =  parse_template($array, 'form.html');

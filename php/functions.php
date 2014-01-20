@@ -37,7 +37,7 @@ function notify($body, $subject, $array, $smtp)
     $mail->SMTPAuth = true;
     $mail->Username = $smtp['username'];
     $mail->Password = $smtp['password'];
-    $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+    $mail->SMTPSecure = 'tls';
 
     $mail->From = 'mailcademy@gmail.com';
     $mail->FromName = 'MailCademy [#'.$array["classname"].']';
@@ -50,7 +50,7 @@ function notify($body, $subject, $array, $smtp)
     $mail->Subject = $subject;
     $mail->Body    = $body;
     $mail->AltBody = "There's a new homework for you to grade in a class you're participating.";
-
+    $mail->SMTPDebug = 1;
     if (!$mail->send()) {
         echo 'Message could not be sent.';
         echo 'Mailer Error: ' . $mail->ErrorInfo;
