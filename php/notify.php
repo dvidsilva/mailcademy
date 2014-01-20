@@ -4,7 +4,7 @@ require_once './functions.php';
 
 $fb = new fireBase($firebase_url, $firebase_token);
 
-$message = explode('/', 'cs169/messages/19992');
+$message = explode('/', $_POST['message_url']);
 
 $class = $fb->get($message[0]);
 $class = json_decode($class, true);
@@ -42,7 +42,7 @@ if (is_array($array['attachments'])) {
 $array['attachments'] = $t;
 
 foreach ($sendto as $mail) {
-    $str = $class['emails'][$mail]['email'] . $message[0] . $message[2];
+    $str = $class['emails'][$mail]['email'] .'|'. $message[0] .'|'. $message[2];
     $hx = str2hex($str);
     $array['token'] = base64_encode($hx)."AA=|=AA".base64_encode($str)."|=AB=|".time();
     $array['name'] = $class['emails'][$mail]['name'];
