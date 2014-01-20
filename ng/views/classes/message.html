@@ -24,16 +24,19 @@
     <div class='page-header'>
       <h3>Peer Reviews</h3>
     </div>
+    <div class='' data-ng-hide='message.reviews'>
+      <p>There are no reviews yet</p>
+    </div>
     <ul class='nav nav-pills nav-stacked'>
       <li data-ng-repeat='(key, review) in message.reviews track by key'>
         <p><span class='label label-info'>{{review.value}}</span> {{review.email}}</p>
         <p><strong>{{review.notes}}</strong></p>
       </li>
     </ul>
-    <div class='page-header'>
+    <div class='page-header' data-ng-if='false'>
       <h3>Add a Review</h3>
     </div>
-    <div class='row'>
+    <div class='row' data-ng-if='false'>
       <form data-role="form" class='form-inline' action=''>
         <div class="form-group">
           <label for='email'>Email address</label>

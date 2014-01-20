@@ -1,0 +1,48 @@
+<style>
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+div.row {
+    width:90%;
+    padding: 5px 5%;
+}
+div.row label, div.row input, div.row textarea{
+    float:left;
+    display:block;
+    width:40%;
+    margin:5%;
+}
+div.row label {
+}
+</style>
+<h1>Hi [#name#]</h1>
+<p>There's a new homework for you to grade in a class you're participating.
+<p>The content of the message is:</p>
+<div class='content' >
+<p>[#content#]</p>
+</div>
+<h2>The message had the following attachments</h2>
+[#attachments#]
+<hr />
+<h2>Your Grade</h2>
+<form action='[#notify_url#]' method='POST' >
+    <input type='hidden' name='token' value='[#token#]'>
+    <input type='hidden' name='email' value='[#email#]' >
+    <table>
+        <tr>
+            <td><label>Grade (0 - 4)</label></td>
+            <td><input name='grade' /></td>
+        </tr>
+        <tr>
+            <td><label>Notes </label></td>
+            <td><textarea name='notes' ></textarea></td>
+        </tr>
+        <tr>
+            <td><label>Send</label></td>
+            <td><input type='submit'></td>
+        </tr>
+    </table>
+</form>
+
+
