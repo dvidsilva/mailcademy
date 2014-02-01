@@ -11,8 +11,7 @@ disqus_shortname = 'mailcademy';
   dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-  return (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  return dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
 })();
 
 chatRef = new Firebase('https://mailcademy.firebaseio.com/');
@@ -117,7 +116,7 @@ MailCademy.directive('navMenu', function($location) {
 var Class;
 
 MailCademy.controller('Class', [
-  '$scope', '$routeParams', 'Settings', 'angularFire', Class = function($scope, $routeParams, Settings, angularFire) {
+  '$scope', '$routeParams', 'Settings', 'angularFire', '$sce', Class = function($scope, $routeParams, Settings, angularFire, $sce) {
     var ref, single;
     ref = new Firebase(Settings.Url + '/');
     if ($routeParams.messageid) {
@@ -139,7 +138,7 @@ MailCademy.controller('Class', [
     }
     $scope.hash = function(email) {
       if (email !== void 0) {
-        md5(email.trim().toLowerCase());
+        return md5(email.replace(/.*<|>.*/g, '').trim().toLowerCase());
       }
     };
     if (single) {
@@ -151,6 +150,12 @@ MailCademy.controller('Class', [
         });
       };
     }
+    $scope.parse = function(text) {
+      return text.replace(/\r?\n/g, '<br>');
+    };
+    $scope.getHtml = function(message) {
+      return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'));
+    };
     return $scope.color = function(avg) {
       var color;
       color = 'danger';

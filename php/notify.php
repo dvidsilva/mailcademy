@@ -4,7 +4,7 @@ require_once './functions.php';
 
 $fb = new fireBase($firebase_url, $firebase_token);
 
-$message = explode('/', $_POST['message_url']);
+$message = explode('/', $_GET['message_url']);
 
 $class = $fb->get($message[0]);
 $class = json_decode($class, true);

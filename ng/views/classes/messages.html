@@ -6,11 +6,12 @@
   <div class="col-xs-4 col-md-2" >
     <img src="http://www.gravatar.com/avatar/{{hash(message.sender)}}" class='img-circle' alt="{{message.sender}}">
     <span class='label label-{{color(message.average)}}' daga-ng-show='message.homework'><i class='glyphicon glyphicon-check'></i> {{message.average}}</span>
+    <span class='name'>{{message.sender}}</span>
   </div>
   <div class="col-xs-7 col-md-9" >
-    <h3><a href='#/class/{{link}}/message/{{message.id}}' >{{message.order}} - {{message.subject}}</a></h3>
+    <h3><a href='#/class/{{link}}/message/{{message.id}}' title='#{{message.order}}'>{{message.subject}}</a></h3>
     <blockquote>
-        <p>{{message.text}}</p>
+        <p ng-bind-html="getHtml(message)" class="mailtext"></p>
         <small>{{message.sender}}</small>
     </blockquote>
     <ul class='nav nav-pills'>

@@ -1,4 +1,4 @@
-MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire', Class = ($scope,$routeParams,Settings, angularFire) ->
+MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire', '$sce', Class = ($scope,$routeParams,Settings, angularFire, $sce) ->
   ref = new Firebase(Settings.Url+'/')
 
   if $routeParams.messageid
@@ -17,13 +17,18 @@ MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire
 
   $scope.hash = (email)->
     if email isnt undefined
-      md5(email.trim().toLowerCase())
+      return md5(email.replace(/.*<|>.*/g, '').trim().toLowerCase())
     return
 
   if single
     $scope.sendReview = ()->
       $scope.message.reviews.push({email: $scope.email, value: $scope.grade, notes: $scope.notes})
 
+  $scope.parse = (text)->
+    return text.replace(/\r?\n/g, '<br>')
+
+  $scope.getHtml = (message) ->
+    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'));
 
   $scope.color = (avg)->
     color = 'danger'
