@@ -1,4 +1,4 @@
-/*! ideajot 2014-01-31 */
+/*! ideajot 2014-02-04 */
 /**
  * @license AngularJS v1.2.0
  * (c) 2010-2012 Google, Inc. http://angularjs.org

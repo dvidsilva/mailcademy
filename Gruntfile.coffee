@@ -120,17 +120,8 @@ module.exports = (grunt) ->
   # sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8888  #
 
   # Default task(s).
-  
-  grunt.registerTask('default', ['uglify'])
 
-  grunt.registerTask('concatCss', ['concat'])
 
-  grunt.registerTask('makeJs', ['coffee'])
-
-  grunt.registerTask('server', ['concat','less','coffee','cssmin'])
-
-  grunt.registerTask('startServer', ['less','coffee','concat','bgShell:setPath','bgShell:mongo','bgShell:redis','bgShell:gwatch','bgShell:tserver'])
-  
   grunt.registerTask('nothing', ['less','coffee','concat','bgShell:gwatch','bgShell:nws'])
 
 

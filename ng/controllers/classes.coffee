@@ -1,4 +1,4 @@
-MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire', '$sce', Class = ($scope,$routeParams,Settings, angularFire, $sce) ->
+MailCademy.controller('Class', Class = ($scope,$routeParams,Settings, angularFire, $sce) ->
   ref = new Firebase(Settings.Url+'/')
 
   if $routeParams.messageid
@@ -37,7 +37,7 @@ MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire
     if avg > 4
       color = 'success'
     return color
-])
+)
 
 MailCademy.filter "toArray", ()->
   return (obj) ->

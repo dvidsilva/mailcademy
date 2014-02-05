@@ -115,60 +115,58 @@ MailCademy.directive('navMenu', function($location) {
 
 var Class;
 
-MailCademy.controller('Class', [
-  '$scope', '$routeParams', 'Settings', 'angularFire', '$sce', Class = function($scope, $routeParams, Settings, angularFire, $sce) {
-    var ref, single;
-    ref = new Firebase(Settings.Url + '/');
-    if ($routeParams.messageid) {
-      single = true;
-      $scope.message = angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message');
-      $scope.link = $routeParams.slug;
-    } else if ($routeParams.slug) {
-      $scope["class"] = angularFire(ref.child($routeParams.slug), $scope, 'class');
-      $scope.link = $routeParams.slug;
-    } else {
-      $scope.classes = angularFire(ref, $scope, 'classes');
+MailCademy.controller('Class', Class = function($scope, $routeParams, Settings, angularFire, $sce) {
+  var ref, single;
+  ref = new Firebase(Settings.Url + '/');
+  if ($routeParams.messageid) {
+    single = true;
+    $scope.message = angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message');
+    $scope.link = $routeParams.slug;
+  } else if ($routeParams.slug) {
+    $scope["class"] = angularFire(ref.child($routeParams.slug), $scope, 'class');
+    $scope.link = $routeParams.slug;
+  } else {
+    $scope.classes = angularFire(ref, $scope, 'classes');
+  }
+  switch ($routeParams.action) {
+    case 'emails':
+      console.log($routeParams.action);
+      break;
+    case 'messages':
+      console.log($routeParams.action);
+  }
+  $scope.hash = function(email) {
+    if (email !== void 0) {
+      return md5(email.replace(/.*<|>.*/g, '').trim().toLowerCase());
     }
-    switch ($routeParams.action) {
-      case 'emails':
-        console.log($routeParams.action);
-        break;
-      case 'messages':
-        console.log($routeParams.action);
-    }
-    $scope.hash = function(email) {
-      if (email !== void 0) {
-        return md5(email.replace(/.*<|>.*/g, '').trim().toLowerCase());
-      }
-    };
-    if (single) {
-      $scope.sendReview = function() {
-        return $scope.message.reviews.push({
-          email: $scope.email,
-          value: $scope.grade,
-          notes: $scope.notes
-        });
-      };
-    }
-    $scope.parse = function(text) {
-      return text.replace(/\r?\n/g, '<br>');
-    };
-    $scope.getHtml = function(message) {
-      return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'));
-    };
-    return $scope.color = function(avg) {
-      var color;
-      color = 'danger';
-      if (avg > 3) {
-        color = 'warning';
-      }
-      if (avg > 4) {
-        color = 'success';
-      }
-      return color;
+  };
+  if (single) {
+    $scope.sendReview = function() {
+      return $scope.message.reviews.push({
+        email: $scope.email,
+        value: $scope.grade,
+        notes: $scope.notes
+      });
     };
   }
-]);
+  $scope.parse = function(text) {
+    return text.replace(/\r?\n/g, '<br>');
+  };
+  $scope.getHtml = function(message) {
+    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'));
+  };
+  return $scope.color = function(avg) {
+    var color;
+    color = 'danger';
+    if (avg > 3) {
+      color = 'warning';
+    }
+    if (avg > 4) {
+      color = 'success';
+    }
+    return color;
+  };
+});
 
 MailCademy.filter("toArray", function() {
   return function(obj) {
