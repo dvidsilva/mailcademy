@@ -28,7 +28,7 @@ MailCademy.controller('Class', Class = ($scope,$routeParams,Settings, angularFir
     return text.replace(/\r?\n/g, '<br>')
 
   $scope.getHtml = (message) ->
-    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'));
+    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'))
 
   $scope.color = (avg)->
     color = 'danger'
