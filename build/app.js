@@ -2,7 +2,7 @@ var App, MailCademy, auth, chatRef, disqus_shortname;
 
 MailCademy = angular.module('MailCademy', ['firebase', 'ngRoute']);
 
-angular.module('App', ['MailCademy', 'ngRoute', 'ngResource', 'ngAnimate', 'ek.Sizzle', App = function() {}]);
+angular.module('App', ['MailCademy', 'firebase', 'ngRoute', 'ngResource', 'ngAnimate', 'ek.Sizzle', App = function() {}]);
 
 disqus_shortname = 'mailcademy';
 
@@ -120,13 +120,13 @@ MailCademy.controller('Class', Class = function($scope, $routeParams, Settings, 
   ref = new Firebase(Settings.Url + '/');
   if ($routeParams.messageid) {
     single = true;
-    $scope.message = angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message');
+    angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message');
     $scope.link = $routeParams.slug;
   } else if ($routeParams.slug) {
-    $scope["class"] = angularFire(ref.child($routeParams.slug), $scope, 'class');
+    angularFire(ref.child($routeParams.slug), $scope, 'class');
     $scope.link = $routeParams.slug;
   } else {
-    $scope.classes = angularFire(ref, $scope, 'classes');
+    angularFire(ref, $scope, 'classes');
   }
   switch ($routeParams.action) {
     case 'emails':

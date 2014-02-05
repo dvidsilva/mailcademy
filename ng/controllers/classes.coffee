@@ -1,15 +1,15 @@
 MailCademy.controller('Class', Class = ($scope,$routeParams,Settings, angularFire, $sce) ->
-  ref = new Firebase(Settings.Url+'/')
+  ref = new Firebase(Settings.Url + '/')
 
   if $routeParams.messageid
     single = true
-    $scope.message = angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message')
+    angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message')
     $scope.link = $routeParams.slug
   else if $routeParams.slug
-    $scope.class = angularFire(ref.child($routeParams.slug), $scope, 'class')
+    angularFire(ref.child($routeParams.slug), $scope, 'class')
     $scope.link = $routeParams.slug
   else
-    $scope.classes = angularFire(ref, $scope, 'classes')
+    angularFire(ref, $scope, 'classes')
 
   switch $routeParams.action
     when 'emails' then console.log $routeParams.action
