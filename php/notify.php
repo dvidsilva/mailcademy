@@ -2,6 +2,12 @@
 require_once './config.php';
 require_once './functions.php';
 
+if (!isset($_GET['message_url'])) {
+    echo "{status: failure, reason:'you forgot the message_url dumb'}";
+    exit;
+}
+
+
 $fb = new fireBase($firebase_url, $firebase_token);
 
 # this thing is expecting an url like /?message_url=/[classname]/message/[messageid]

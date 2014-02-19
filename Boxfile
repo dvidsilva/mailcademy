@@ -1,10 +1,13 @@
 web1:
-  name: MailCademy
-  shared_writable_dirs:
-    - var/cache
-  document_root: ./
-  php_version: 5.3.23
-  php_extensions:
-    - gd
-    - eaccelerator
-
+  php_extensions:
+    - curl
+    - dom
+    - pdo
+    - pdo_mysql
+    - apc
+    - mcrypt
+    - soap
+    - gd
+    - freetype
+  shared_writable_dirs:
+    - /public
