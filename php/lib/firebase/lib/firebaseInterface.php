@@ -3,6 +3,7 @@
  * Interface for PHP Firebase functions.
  **/
 
+
 interface FirebaseInterface
 {
   public function setToken($token);
