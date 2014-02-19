@@ -2,7 +2,7 @@
 MailCademy = angular.module('MailCademy', ['firebase','ngRoute'])
 
 
-angular.module('App', ['MailCademy','ngRoute','ngResource','ngAnimate','ek.Sizzle', App = ()->
+angular.module('App', ['MailCademy','firebase','ngRoute','ngResource','ngAnimate','ek.Sizzle', App = ()->
   return
 ])
 #https://github.com/herschel666/angular-sizzle

@@ -1,15 +1,15 @@
-MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire', '$sce', Class = ($scope,$routeParams,Settings, angularFire, $sce) ->
-  ref = new Firebase(Settings.Url+'/')
+MailCademy.controller('Class', Class = ($scope,$routeParams,Settings, angularFire, $sce) ->
+  ref = new Firebase(Settings.Url + '/')
 
   if $routeParams.messageid
     single = true
-    $scope.message = angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message')
+    angularFire(ref.child($routeParams.slug).child('messages').child($routeParams.messageid), $scope, 'message')
     $scope.link = $routeParams.slug
   else if $routeParams.slug
-    $scope.class = angularFire(ref.child($routeParams.slug), $scope, 'class')
+    angularFire(ref.child($routeParams.slug), $scope, 'class')
     $scope.link = $routeParams.slug
   else
-    $scope.classes = angularFire(ref, $scope, 'classes')
+    angularFire(ref, $scope, 'classes')
 
   switch $routeParams.action
     when 'emails' then console.log $routeParams.action
@@ -28,7 +28,7 @@ MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire
     return text.replace(/\r?\n/g, '<br>')
 
   $scope.getHtml = (message) ->
-    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'));
+    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'))
 
   $scope.color = (avg)->
     color = 'danger'
@@ -37,7 +37,7 @@ MailCademy.controller('Class', ['$scope','$routeParams','Settings', 'angularFire
     if avg > 4
       color = 'success'
     return color
-])
+)
 
 MailCademy.filter "toArray", ()->
   return (obj) ->
