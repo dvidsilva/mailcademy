@@ -1,10 +1,10 @@
 <?php
 
-require_once './lib/firebase-php/firebaseLib.php';
+require_once './lib/firebase/firebaseLib.php';
 // https://github.com/ktamas77/firebase-php/blob/master/firebaseTest.php
 // https://mailcademy.firebaseio.com/
 // http://localhost/events/angelhack/fall2013/php/notify.php
-require_once './lib/PHPMailer/PHPMailerAutoload.php';
+require_once './lib/MAIL/PHPMailerAutoload.php';
 
 
 $smtp['username'] = 'mailcademy@gmail.com';
