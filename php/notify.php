@@ -4,6 +4,8 @@ require_once './functions.php';
 
 $fb = new fireBase($firebase_url, $firebase_token);
 
+# this thing is expecting an url like /?message_url=/[classname]/message/[messageid]
+# like ?message_url=quantdecal/messages/1141
 $message = explode('/', $_GET['message_url']);
 
 $class = $fb->get($message[0]);
