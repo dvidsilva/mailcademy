@@ -11,3 +11,4 @@ web1:
     - freetype
   shared_writable_dirs:
     - /public
+
