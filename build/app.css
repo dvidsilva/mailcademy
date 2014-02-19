@@ -1,0 +1,15 @@
+/*! ideajot 2014-02-04 */
+.mailtext {
+  font-size: 14px;
+}
+.name {
+  font-style: italic;
+  width: 196px;
+  color: #8F8F8F;
+  text-align: left;
+  font-size: 11px;
+  word-wrap: break-word;
+  clear: both;
+  display: block;
+  margin-top: 10px;
+}
