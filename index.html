@@ -19,6 +19,33 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="./build/style.css">
   <link rel="stylesheet" href="./build/app.css">
+  <script type="text/javascript">
+  $(function() {
+      $('head').append('<style>.hideMore{display:none}\
+.showMore {\
+color: #666;\
+width: 4em;\
+padding: 2px;\
+background: #CACACA;\
+border: 1px solid #999;\
+display: inline-block;\
+height: 2em;\
+border-radius: 4px;\
+text-align: center;\
+font-weight: bold;\
+cursor: pointer;\
+margin-bottom: 10px;\
+}\
+</style>');
+      $(document.body).on('click', '.showMore', function (e) {
+        $(this).next().slideToggle();
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      })
+  });
+
+  </script>
 
 </head>
 <body data-ng-controller='App' >

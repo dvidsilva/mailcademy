@@ -153,7 +153,10 @@ MailCademy.controller('Class', Class = function($scope, $routeParams, Settings, 
     return text.replace(/\r?\n/g, '<br>');
   };
   $scope.getHtml = function(message) {
-    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'));
+    message = message.text.replace(/\r|\n/g, '<br>');
+    message = message.replace(/&NewLine;/g, '\n');
+    message = message.replace(/(\nOn (?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(,|&comma;)[^\n]+(?:\n[^\n]+){1,2}(?:\n&gt;[^\n]+)+\n?$)/, '<a class="showMore">...</a><div class="hideMore">$1</div>');
+    return $sce.trustAsHtml(message);
   };
   return $scope.color = function(avg) {
     var color;

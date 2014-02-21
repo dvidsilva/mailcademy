@@ -28,7 +28,10 @@ MailCademy.controller('Class', Class = ($scope,$routeParams,Settings, angularFir
     return text.replace(/\r?\n/g, '<br>')
 
   $scope.getHtml = (message) ->
-    return $sce.trustAsHtml(message.text.replace(/\r|\n/g, '<br>'))
+    message = message.text.replace(/\r|\n/g, '<br>')
+    message = message.replace(/&NewLine;/g, '\n')
+    message = message.replace(/(\nOn (?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(,|&comma;)[^\n]+(?:\n[^\n]+){1,2}(?:\n&gt;[^\n]+)+\n?$)/, '<a class="showMore">...</a><div class="hideMore">$1</div>')
+    return $sce.trustAsHtml(message)
 
   $scope.color = (avg)->
     color = 'danger'
