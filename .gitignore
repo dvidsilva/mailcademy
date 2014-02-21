@@ -1,3 +1,4 @@
 node_modules/*
 attachments/*
 build/*
+php/lib/*
