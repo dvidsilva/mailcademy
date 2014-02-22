@@ -58,3 +58,20 @@ function notify($body, $subject, $array, $smtp)
     // }
     return true;
 }
+
+
+function kill()
+{
+    echo "UNAUTHORIZED ATTEMPT TO MODIFY SOMETHING, DIALING POLICE NOW";
+    echo '<iframe width="640" height="480" src="//www.youtube.com/embed/dQw4w9WgXcQ?rel=0" frameborder="0" allowfullscreen></iframe>';
+    exit;
+}
+function killapi($status='fail', $message = 'shit')
+{
+    $response = [];
+    header('Content-Type: application/json');
+    $res['status'] = $status;
+    $res['message'] = $message;
+    echo json_encode($res);
+    exit;
+}

@@ -9,9 +9,8 @@ if (!isset($_GET['message_url'])) {
 
 
 $fb = new fireBase($firebase_url, $firebase_token);
-
-# this thing is expecting an url like /?message_url=/[classname]/message/[messageid]
-# like ?message_url=quantdecal/messages/1141
+// this thing is expecting an url like /?message_url=/[classname]/message/[messageid]
+// like ?message_url=quantdecal/messages/1141
 $message = explode('/', $_GET['message_url']);
 
 $class = $fb->get($message[0]);
@@ -29,9 +28,22 @@ if ($class['messages'][$message[2]]['homework'] !== true) {
 }
 $top = $c >= 3 ? 3 : $c;
 
+$num_homework = isset($class['messages'][$message[2]]['num_homework']) ? $class['messages'][$message[2]]['num_homework'] : killapi();
+
+
+$recipients = array();
+foreach ( $class['emails'] as $std ) {
+    if (!isset($std['homeworks'][$num_homework]) ) {
+        array_push($recipients, $std);
+        continue;
+    }
+    if ($std['homeworks'][$num_homework]['reviewed']){
+        
+    }
+}
+
 
 $sendto = array_rand($class['emails'], $top);
-
 
 $subject = 'MAILCADEMY: New Homework to grade in '.$message[0];
 
@@ -39,7 +51,12 @@ $array = array();
 $array['classname'] = $message[0];
 $array['notify_url'] = $notify_url;
 $array['content'] = $class['messages'][$message[2]]['text'];
-$array['attachments'] = $class['messages'][$message[2]]['attachments'];
+
+
+
+$array['attachments'] = isset($class['messages'][$message[2]]['attachments']) ? $class['messages'][$message[2]]['attachments'] : null ;
+
+
 if (is_array($array['attachments'])) {
     foreach ($array['attachments'] as $arr) {
         $t = '<p><a href="'.$arr.'" >'.$arr.'</a></p>';
@@ -55,6 +72,7 @@ foreach ($sendto as $mail) {
     $array['token'] = base64_encode($hx)."AA=|=AA".base64_encode($str)."|=AB=|".time();
     $array['name'] = $class['emails'][$mail]['name'];
     $array['email'] =  $class['emails'][$mail]['email'];
+    $array['email'] = 'pollito@dispostable.com';
     $body =  parse_template($array, 'form.html');
     notify($body, $subject, $array, $smtp);
 }
