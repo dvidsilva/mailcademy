@@ -23,9 +23,9 @@ function hex2str($hex)
 
 function str2hex($str)
 {
-    return array_shift(unpack('H*', $str));
+    $arr = unpack('H*', $str);
+    return array_shift($arr);
 }
-
 
 
 
@@ -51,11 +51,11 @@ function notify($body, $subject, $array, $smtp)
     $mail->Body    = $body;
     $mail->AltBody = "There's a new homework for you to grade in a class you're participating.";
     $mail->SMTPDebug = 1;
-    // if (!$mail->send()) {
-    //     echo 'Message could not be sent.';
-    //     echo 'Mailer Error: ' . $mail->ErrorInfo;
-    //     return false;
-    // }
+    if (!$mail->send()) {
+         echo 'Message could not be sent.';
+         echo 'Mailer Error: ' . $mail->ErrorInfo;
+         return false;
+    }
     return true;
 }
 

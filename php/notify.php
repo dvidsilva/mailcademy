@@ -2,6 +2,11 @@
 require_once './config.php';
 require_once './functions.php';
 
+
+if ( $_GET['token'] !== '4Y5D56JqObMnX8W61vLK7T2z6zeAnUcQc1uV5cLk' ) {
+    killapi();
+}
+
 if (!isset($_GET['message_url'])) {
     echo "{status: failure, reason:'you forgot the message_url dumb'}";
     exit;
@@ -33,12 +38,16 @@ $num_homework = isset($class['messages'][$message[2]]['num_homework']) ? $class[
 
 $recipients = array();
 foreach ( $class['emails'] as $std ) {
-    if (!isset($std['homeworks'][$num_homework]) ) {
+    if (!isset($std['homeworks'][$num_homework]['reviewed']) ) {
         array_push($recipients, $std);
         continue;
     }
-    if ($std['homeworks'][$num_homework]['reviewed']){
-        
+    if (!isset($std['homeworks'][$num_homework]['delivered']) ) {
+        // do nothing
+    }
+    if ($std['homeworks'][$num_homework]['reviewed'] < 4) {
+        array_push($recipients, $std);
+        continue;
     }
 }
 
@@ -50,11 +59,11 @@ $subject = 'MAILCADEMY: New Homework to grade in '.$message[0];
 $array = array();
 $array['classname'] = $message[0];
 $array['notify_url'] = $notify_url;
-$array['content'] = $class['messages'][$message[2]]['text'];
-
+$array['content'] = isset($class['messages'][$message[2]]['text']) ? $class['messages'][$message[2]]['text'] : ' ----- ';
 
 
 $array['attachments'] = isset($class['messages'][$message[2]]['attachments']) ? $class['messages'][$message[2]]['attachments'] : null ;
+
 
 
 if (is_array($array['attachments'])) {
@@ -70,7 +79,7 @@ foreach ($sendto as $mail) {
     $str = $class['emails'][$mail]['email'] .'|'. $message[0] .'|'. $message[2];
     $hx = str2hex($str);
     $array['token'] = base64_encode($hx)."AA=|=AA".base64_encode($str)."|=AB=|".time();
-    $array['name'] = $class['emails'][$mail]['name'];
+    $array['name'] = isset($class['emails'][$mail]['name'])   ? $class['emails'][$mail]['name'] : ' Dear student ' ;
     $array['email'] =  $class['emails'][$mail]['email'];
     $array['email'] = 'pollito@dispostable.com';
     $body =  parse_template($array, 'form.html');
