@@ -14,7 +14,8 @@ $m = base64_decode($m[0]);
 $t = explode('|', $m);
 
 if ($t[0] !== $_POST['email']) {
-    kill();
+    //kill();
+    echo 'chipichape';
 }
 
 

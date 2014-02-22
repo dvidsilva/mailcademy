@@ -37,16 +37,16 @@ $num_homework = isset($class['messages'][$message[2]]['num_homework']) ? $class[
 
 
 $recipients = array();
-foreach ( $class['emails'] as $std ) {
+foreach ( $class['emails'] as $k => $std ) {
     if (!isset($std['homeworks'][$num_homework]['reviewed']) ) {
-        array_push($recipients, $std);
+        $recipients[$k] = $std;
         continue;
     }
     if (!isset($std['homeworks'][$num_homework]['delivered']) ) {
         // do nothing
     }
     if ($std['homeworks'][$num_homework]['reviewed'] < 4) {
-        array_push($recipients, $std);
+        $recipients[$k] = $std;
         continue;
     }
 }
@@ -81,7 +81,9 @@ foreach ($sendto as $mail) {
     $array['token'] = base64_encode($hx)."AA=|=AA".base64_encode($str)."|=AB=|".time();
     $array['name'] = isset($class['emails'][$mail]['name'])   ? $class['emails'][$mail]['name'] : ' Dear student ' ;
     $array['email'] =  $class['emails'][$mail]['email'];
-    $array['email'] = 'pollito@dispostable.com';
+    $array['email'] = 'mailcademy@gmail.com';
     $body =  parse_template($array, 'form.html');
     notify($body, $subject, $array, $smtp);
+    $r = isset($class['emails'][$mail]['reviewed'] ) ? ( $class['emails'][$mail]['reviewed']  + 1 )  : 1;
+    $fb->set($message[0].'/emails/'.$mail.'/reviewed',  $r);
 }

@@ -13,6 +13,7 @@ $smtp['host'] = 'smtp.gmail.com';
 $smtp['port'] = '465';
 
 $notify_url = 'http://mailcademy.gopagoda.com/php/confirm.php';
+$notify_url = 'http://localhost/events/angelhack/fall2013/php/confirm.php';
 $firebase_url = 'https://mailcademy.firebaseio.com/';
 $firebase_token = 'A6RidddAqfCT5WjAHGoclHDV1YVefDkvbN5ri6ix';
 
