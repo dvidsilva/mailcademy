@@ -1,0 +1,12 @@
+<div class='page-header'>
+  <h1><a href="#/class/{{link}}" class="">{{link}}</a> <small> Homeworks</small></h1>
+  <p class='lead'>{{class.description}}</p>
+</div>
+
+<div class="row" >
+  <div class="col-xs-12 col-md-5" data-ng-repeat='homework in homeworks'>
+    <img src="http://www.gravatar.com/avatar/{{hash(message.sender)}}" class='img-circle' alt="{{message.sender}}">
+    <span class='label label-{{color(message.average)}}' daga-ng-show='message.homework'><i class='glyphicon glyphicon-check'></i> {{homework.average}}</span>
+    <p data-ng-bind='homework.text'></p>
+  </div>
+</div>

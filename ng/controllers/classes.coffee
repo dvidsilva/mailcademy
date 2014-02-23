@@ -11,6 +11,12 @@ MailCademy.controller('Class', Class = ($scope,$routeParams,Settings, angularFir
   else
     angularFire(ref, $scope, 'classes')
 
+  if $routeParams.action is 'homeworks'
+    angularFire(ref.child($routeParams.slug).child('homeworks'), $scope, 'homeworks')
+    $scope.link = $routeParams.slug
+
+
+
   switch $routeParams.action
     when 'emails' then console.log $routeParams.action
     when 'messages' then console.log $routeParams.action
@@ -32,6 +38,13 @@ MailCademy.controller('Class', Class = ($scope,$routeParams,Settings, angularFir
     message = message.replace(/&NewLine;/g, '\n')
     message = message.replace(/(\nOn (?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(,|&comma;)[^\n]+(?:\n[^\n]+){1,2}(?:\n&gt;[^\n]+)+\n?$)/, '<a class="showMore">...</a><div class="hideMore">$1</div>')
     return $sce.trustAsHtml(message)
+
+
+
+  $scope.average = (avg)->
+    if typeof(avg) is 'undefined'
+      return '?'
+    return avg
 
   $scope.color = (avg)->
     color = 'danger'

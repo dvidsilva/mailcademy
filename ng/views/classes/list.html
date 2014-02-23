@@ -2,7 +2,7 @@
   <h1>Classes <small> &nbsp;</small></h1>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-md-4" data-ng-repeat='(key, class) in classes' >
+  <div class="col-xs-10 col-md-5" data-ng-repeat='(key, class) in classes' >
     <div href="#" class="thumbnail">
       <!--<img src="http://placekitten.com/200/100" alt="...">-->
       <div class="caption">
@@ -10,7 +10,8 @@
         <p>{{class.description}}&nbsp;</p>
         <div class='btn-group'>
           <a href="#/class/{{key}}/emails" class="btn btn-primary" role="button">Students</a> 
-          <a href="#/class/{{key}}/messages" class="btn btn-default" role="button">Messages</a></p>
+          <a href="#/class/{{key}}/messages" class="btn btn-default" role="button">Messages</a>
+          <a href="#/class/{{key}}/homeworks" class="btn btn-success" role="button">Homeworks</a>
         </div>
       </div>
     </div>

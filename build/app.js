@@ -128,6 +128,10 @@ MailCademy.controller('Class', Class = function($scope, $routeParams, Settings, 
   } else {
     angularFire(ref, $scope, 'classes');
   }
+  if ($routeParams.action === 'homeworks') {
+    angularFire(ref.child($routeParams.slug).child('homeworks'), $scope, 'homeworks');
+    $scope.link = $routeParams.slug;
+  }
   switch ($routeParams.action) {
     case 'emails':
       console.log($routeParams.action);
@@ -157,6 +161,12 @@ MailCademy.controller('Class', Class = function($scope, $routeParams, Settings, 
     message = message.replace(/&NewLine;/g, '\n');
     message = message.replace(/(\nOn (?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(,|&comma;)[^\n]+(?:\n[^\n]+){1,2}(?:\n&gt;[^\n]+)+\n?$)/, '<a class="showMore">...</a><div class="hideMore">$1</div>');
     return $sce.trustAsHtml(message);
+  };
+  $scope.average = function(avg) {
+    if (typeof avg === 'undefined') {
+      return '?';
+    }
+    return avg;
   };
   return $scope.color = function(avg) {
     var color;
