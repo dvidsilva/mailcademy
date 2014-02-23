@@ -62,8 +62,8 @@ function notify($body, $subject, $array, $smtp)
 
 function kill()
 {
-    echo "UNAUTHORIZED ATTEMPT TO MODIFY SOMETHING, DIALING POLICE NOW";
-    echo '<iframe width="640" height="480" src="//www.youtube.com/embed/dQw4w9WgXcQ?rel=0" frameborder="0" allowfullscreen></iframe>';
+    echo "UNAUTHORIZED ATTEMPT TO MODIFY SOMETHING.";
+    echo '<iframe width="640" height="480" src="//www.youtube.com/embed/dQw4w9WgXcQ?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
     exit;
 }
 function killapi($status='fail', $message = 'shit')
